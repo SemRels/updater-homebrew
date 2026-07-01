@@ -1,6 +1,6 @@
 # updater-homebrew
 
-[![Latest Release](https://img.shields.io/github/v/release/SemRels/updater-homebrew?label=version\&color=blue)](https://github.com/SemRels/updater-homebrew/releases/latest)
+[![Latest Release](https://img.shields.io/github/v/release/SemRels/updater-homebrew?label=version&color=blue)](https://github.com/SemRels/updater-homebrew/releases/latest)
 
 Updates a Homebrew formula for the new release.
 
