@@ -15,7 +15,11 @@ func TestRunUpdatesFormula(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer os.RemoveAll(dir)
+	t.Cleanup(func() {
+		if err := os.RemoveAll(dir); err != nil {
+			t.Errorf("remove temporary directory: %v", err)
+		}
+	})
 
 	file := filepath.Join(dir, "demo.rb")
 	if err := os.WriteFile(file, []byte("version \"1.0.0\"\n"), 0o644); err != nil {
