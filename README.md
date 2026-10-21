@@ -1,6 +1,10 @@
 # updater-homebrew
 
 [![Latest Release](https://img.shields.io/github/v/release/SemRels/updater-homebrew?label=version&color=blue)](https://github.com/SemRels/updater-homebrew/releases/latest)
+[![CI](https://github.com/SemRels/updater-homebrew/actions/workflows/ci.yml/badge.svg)](https://github.com/SemRels/updater-homebrew/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/SemRels/updater-homebrew)](LICENSE)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/SemRels/updater-homebrew/badge)](https://scorecard.dev/viewer/?uri=github.com/SemRels/updater-homebrew)
+[![REUSE status](https://api.reuse.software/badge/github.com/SemRels/updater-homebrew)](https://api.reuse.software/info/github.com/SemRels/updater-homebrew)
 
 Updates a Homebrew formula for the new release.
 
