@@ -1,6 +1,10 @@
 # updater-homebrew
 
 [![Latest Release](https://img.shields.io/github/v/release/SemRels/updater-homebrew?label=version&color=blue)](https://github.com/SemRels/updater-homebrew/releases/latest)
+[![CI](https://github.com/SemRels/updater-homebrew/actions/workflows/ci.yml/badge.svg)](https://github.com/SemRels/updater-homebrew/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/SemRels/updater-homebrew)](LICENSE)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/SemRels/updater-homebrew/badge)](https://scorecard.dev/viewer/?uri=github.com/SemRels/updater-homebrew)
+[![REUSE status](https://api.reuse.software/badge/github.com/SemRels/updater-homebrew)](https://api.reuse.software/info/github.com/SemRels/updater-homebrew)
 
 Updates a Homebrew formula for the new release.
 
@@ -26,7 +30,7 @@ Images are signed with [cosign](https://github.com/sigstore/cosign) and include 
 
 ```bash
 cosign verify ghcr.io/semrels/updater-homebrew:latest \
-  --certificate-identity-regexp 'https://github.com/SemRels/updater-homebrew/.github/workflows/release.yml.*' \
+  --certificate-identity-regexp 'https://github.com/SemRels/updater-homebrew/.github/workflows/container.yml.*' \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com
 ```
 
@@ -35,21 +39,23 @@ cosign verify ghcr.io/semrels/updater-homebrew:latest \
 
 ```yaml
 plugins:
-  - name: updater-homebrew
-    path: ~/.semrel/plugins/semrel-plugin-updater-homebrew
-    env:
-      SEMREL_PLUGIN_FORMULA_FILE: "Formula/my-tool.rb"
-      SEMREL_PLUGIN_URL_TEMPLATE: "https://github.com/acme/tool/archive/refs/tags/v{{ .Version }}.tar.gz"
-      SEMREL_PLUGIN_SHA256: "${TARBALL_SHA256}"
+  - uses: "@semrel/updater-homebrew"
+    phase: pre-tag
+    args:
+      formula_file: "Formula/my-tool.rb"
+      url_template: "https://github.com/acme/tool/archive/refs/tags/v{{ .Version }}.tar.gz"
+      sha256: "${TARBALL_SHA256}"
 ```
 
-## `SEMREL_PLUGIN_*` variables
+## Options
 
-| Name | Required | Description | Default |
-| --- | --- | --- | --- |
-| `SEMREL_PLUGIN_FORMULA_FILE` | Required | Path to the Homebrew formula file to update. | None |
-| `SEMREL_PLUGIN_URL_TEMPLATE` | Optional | Template used to build the download URL for the new release. | None |
-| `SEMREL_PLUGIN_SHA256` | Optional | SHA256 checksum to write into the formula. | None |
+Every option can be set as an entry under `args` in `.semrel.yaml`. semrel passes each entry to the plugin as the environment variable shown in the table, so you can also set that variable directly (for example in your CI environment) instead of using `args`.
+
+| Argument | Environment variable | Required | Description | Default |
+| --- | --- | --- | --- | --- |
+| `formula_file` | `SEMREL_PLUGIN_FORMULA_FILE` | Required | Path to the Homebrew formula file to update. | None |
+| `url_template` | `SEMREL_PLUGIN_URL_TEMPLATE` | Optional | Template used to build the download URL for the new release. | None |
+| `sha256` | `SEMREL_PLUGIN_SHA256` | Optional | SHA256 checksum to write into the formula. | None |
 
 ## `SEMREL_*` release context used
 
